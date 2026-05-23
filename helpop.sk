@@ -1,0 +1,24 @@
+# NariseMC Helpop to Discord
+# Autor: wojtasdj41-eng
+# Wersia: 1.0
+
+on command "/helpop":
+	if arg 1 is not set:
+		send "&c/helpop <wiadomość>"
+		stop
+	
+	set {helpop.player} to player
+	set {helpop.message} to arg 1 to last arg
+	set {helpop.time} to now
+	
+	# Pobranie skina gracza (avatar)
+	set {helpop.avatar} to "https://crafatar.com/avatars/%player's uuid%?size=128"
+	
+	# Tworzenie JSON dla Discord embed'a
+	set {helpop.json} to "{\"embeds\":[{\"title\":\"🆘 HELPOP\",\"color\":9109759,\"fields\":[{\"name\":\"👤 Gracz\",\"value\":\"%{helpop.player}%\",\"inline\":true},{\"name\":\"💬 Wiadomość\",\"value\":\"%{helpop.message}%\",\"inline\":false},{\"name\":\"⏰ Czas\",\"value\":\"%{helpop.time}%\",\"inline\":true}],\"thumbnail\":{\"url\":\"%{helpop.avatar}%\"}}]}"
+	
+	# Wysłanie na Discord webhook
+	execute console command "webhook post https://discord.com/api/webhooks/1507752634973425759/PXTRGs57MmHt_Yaoyafw9aAehvnvGCDpCVNwkEzC1dyZjnk7W2azvDy2EbJr7Cd9fsfi %{helpop.json}%"
+	
+	send "&a✓ Wiadomość helpop wysłana do administracji!"
+	send "&7Admini otrzymali Twoją wiadomość: &f%{helpop.message}%"
